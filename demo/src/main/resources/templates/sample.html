@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h3>객체 값 출력</h3>
+    <h4 th:text="${name}"></h4>
+    <h4>[[${name}]]</h4>
+    <input type="text" name="" id="" th:value="${name}" />
+    <h4 th:text="${dto}"></h4>
+    <ul>
+      <li>ID : <span th:text="${dto.id}"></span></li>
+      <li>first : <span th:text="${dto.first}"></span></li>
+      <li>last : <span th:text="${dto.last}"></span></li>
+      <li>regTime : <span th:text="${dto.regDateTime}"></span></li>
+    </ul>
+    <!-- 리스트 출력 -->
+    <ul>
+      <li th:each=" dto : ${list}" th:text="${dto}"></li>
+    </ul>
+    <!-- 리스트를 테이블로 출력 -->
+    <table>
+      <tr>
+        <th>아이디</th>
+        <th>first</th>
+        <th>last</th>
+        <th>regTime</th>
+      </tr>
+      <tr th:each=" dto: ${list}">
+        <td th:text="${dto.id}"></td>
+        <td>
+          <a th:href="@{ex2(id=${dto.id})}" th:text="${dto.first}"></a>
+        </td>
+        <td th:text="${dto.last}"></td>
+        <td th:text="${#temporals.format(dto.regDateTime, 'yyyy-MM-dd hh:mm')}"></td>
+      </tr>
+    </table>
+    <!-- each 를 쓸 때 state를 이용해서 추가 정보를 추출 할 수 있음 -->
+    <table>
+      <tr>
+        <th>아이디</th>
+        <th>first</th>
+        <th>last</th>
+        <th>regTime</th>
+        <th>index</th>
+        <th>count</th>
+        <th>size</th>
+        <th>odd/even</th>
+      </tr>
+      <tr th:each="dto,state: ${list}">
+        <td th:text="${dto.id}"></td>
+        <td th:text="${dto.first}"></td>
+        <td th:text="${dto.last}"></td>
+        <td th:text="${#temporals.format(dto.regDateTime, 'yyyy-MM-dd hh:mm')}"></td>
+        <td th:text="${state.index}"></td>
+        <td th:text="${state.count}"></td>
+        <td th:text="${state.size}"></td>
+        <td th:text="${state.odd} + '/' + ${state.even}"></td>
+      </tr>
+    </table>
+    <!-- th:if ~ th:unless (if~else와 같은 개념)-->
+    <table>
+      <tr>
+        <th>아이디</th>
+        <th>first</th>
+        <th>last</th>
+        <th>regTime</th>
+      </tr>
+      <tr th:each=" dto: ${list}" th:if="${dto.id % 5 == 0}">
+        <td th:text="${dto.id}"></td>
+        <td th:text="${dto.first}"></td>
+        <td th:text="${dto.last}"></td>
+        <td th:text="${#temporals.format(dto.regDateTime, 'yyyy-MM-dd hh:mm')}"></td>
+      </tr>
+    </table>
+    <ul>
+      <li th:each="dto : ${list}">
+        <!-- if문과 같은 개념 -->
+        <span th:if="${dto.id % 5 == 0}" th:text="${'===========' + dto.id}"></span>
+        <!-- else와 같은 개념이지만 조건을 넣어야함 -->
+        <span th:unless="${dto.id % 5 == 0}" th:text="${dto.id}"></span>
+      </li>
+    </ul>
+    <h3>삼항연산자로 변경</h3>
+    <ul>
+      <li th:each="dto : ${list}">
+        <span th:text="${dto.id % 5 == 0}?${'===========' + dto.id}:${dto.id}"></span>
+      </li>
+    </ul>
+    <h3>Switch-Case로 변경</h3>
+    <ul>
+      <li th:each="dto,state : ${list}" th:switch="${state.even}">
+        <span th:case="true" th:text="${dto.first}"></span>
+        <span th:case="false" th:text="${dto.last}"></span>
+      </li>
+    </ul>
+    <h3>웹 페이지 링크</h3>
+    <ul>
+      <!-- 배포 : 실제 서버에 프로그램을 올리는 작업 
+       
+        http://localhost:8080/ 로컬
+
+        http://도메인주소/app/member/login 
+
+        <a th:href="@{}"></a> 로컬이아닌 환경에서도 동일한 경로를 보장해줌
+
+        th:href , href 경로는 둘다 똑같이 표현
+        단, 파라메터를 보내는 방법은 달라짐
+        href : /member/login?id=hong
+        th:href : /member/login(id='hong')
+                  /ex1?param1=data1&param2=10
+
+      -->
+      <li><a th:href="@{/calc}">calc</a></li>
+      <li><a th:href="@{/ex1(param1='data1', param2=10)}">ex1</a></li>
+    </ul>
+    <h3>thymeleaf 유틸리티 객체</h3>
+    <ul>
+      <li th:text="${price}"></li>
+      <li th:text="${#numbers.formatInteger(price,3,'COMMA')}"></li>
+      <li th:text="${options}"></li>
+      <li th:text="${#lists.size(options)}"></li>
+      <li th:text="${#lists.contains(options, 'AAAA')}"></li>
+      <li th:text="${now}"></li>
+      <li th:text="${#dates.format(now, 'yyyy-MM-dd hh:mm')}"></li>
+      <li th:text="${title}"></li>
+      <li th:text="${#strings.replace(title, 's', '<b>s</b>')}"></li>
+    </ul>
+    <script>
+      const name = "[[${name}]]";
+    </script>
+  </body>
+</html>

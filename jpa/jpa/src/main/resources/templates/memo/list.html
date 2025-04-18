@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layouts/layout}">
+  <div layout:fragment="content" class="row g-5">
+    <!-- 페이지마다 다른 본문 작성 -->
+    <div class="col-md-8">
+      <h1>List</h1>
+      <table class="table">
+        <tr>
+          <th>번호</th>
+          <th>내용</th>
+          <th>작성일</th>
+        </tr>
+        <tr th:each="dto : ${list}">
+          <td th:text="${dto.mno}"></td>
+          <td><a th:href="@{/memo/read(mno=${dto.mno})}" th:text="${dto.memoText}"></a></td>
+          <td th:text="${#temporals.format(dto.createdDate, 'yyyy-MM-dd')}"></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <th:block layout:fragment="script">
+    <!-- 페이지마다 유동적인 영역 들어올수도있고 안들어올수도있음 -->
+    <script>
+      const msg = "[[${msg}]]";
+      if (msg) {
+        alert(msg + "번 메모가 등록되었습니다.");
+      }
+    </script>
+  </th:block>
+</html>

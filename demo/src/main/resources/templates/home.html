@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>테스트</h1>
+    <h3>덧셈</h3>
+    <h3>
+      <a href="/sample" th:href="@{/sample}">thymeleaf 코드 연습</a>
+    </h3>
+    <ul>
+      <li><a href="/basic" th:href="@{/basic}">덧셈</a></li>
+      <li><a href="/calc" th:href="@{/calc}">사칙연산</a></li>
+    </ul>
+    <h3>Borad</h3>
+    <ul>
+      <li><a href="/board/create" th:href="@{/board/create}">게시글 작성</a></li>
+      <li><a href="/board/list" th:href="@{/board/list}">게시글 목록</a></li>
+      <li><a href="/board/read" th:href="@{/board/read}">게시글 조회</a></li>
+      <li><a href="/board/update" th:href="@{/board/update}">게시글 수정</a></li>
+    </ul>
+    <h3>Member</h3>
+    <ul>
+      <li><a href="/member/register" th:href="@{/member/register}">회원가입</a></li>
+      <li><a href="/member/login" th:href="@{/member/login}">로그인</a></li>
+      <li><a href="/member/logout" th:href="@{/member/logout}">로그아웃</a></li>
+      <li><a href="/member/change" th:href="@{/member/change}">비밀번호변경</a></li>
+    </ul>
+    <h3 th:text="${session.name1}"></h3>
+  </body>
+</html>

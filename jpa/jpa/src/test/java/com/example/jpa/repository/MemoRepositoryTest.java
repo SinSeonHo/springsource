@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.jpa.entity.Memo;
-import com.example.jpa.entity.Student;
-import com.example.jpa.entity.Student.Grade;
 
 @SpringBootTest
 public class MemoRepositoryTest {
@@ -17,6 +15,14 @@ public class MemoRepositoryTest {
     private MemoRepository memoRepository;
 
     // test 메소드 작성
+
+    @Test
+    public void queryMethodTest() {
+        // System.out.println(memoRepository.findByMnoLessThan(5L));
+        System.out.println(memoRepository.findByMnoLessThanOrderByMnoDesc(10L));
+        // System.out.println(memoRepository.findByMemoTextContaining("memo"));
+    }
+
     @Test
     public void insertTest() {
         LongStream.rangeClosed(1, 10).forEach(i -> {

@@ -1,0 +1,16 @@
+기능
+
+도서관리
+
+- 도서정보입력
+- 도서정보수정
+- 도서정보삭제
+- 도서정보조회
+    - 전체조회
+    - 개별조회
+
+-book-
+code      pk
+title     String not null
+author    String not null
+price     int    not null

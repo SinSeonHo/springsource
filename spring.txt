@@ -178,6 +178,7 @@ th:href="@{/ex1(id=${dto.id})}" : /를 붙이면 http://localhost:8080/ 다음 �
     org.springframework.data 제공하는
     @CreatedDate
     @LastModifiedDate
+    
     + hibernate에서 제공하는 기능과 같은 기능이지만 추가적인 설정작업이 필요함
     main이 있는 클래스에 @EnableJpaAuditing 추가,
     Entity 클래스에 @EntityListeners(value = AuditingEntityListener.class) 추가
@@ -192,3 +193,9 @@ Repository 제공 메소드
 2) findById() : select(where절 포함)
 3) findAll() : 전체조회
 4) deleteById() / delete() : 삭제
+
+
+- modelmapper : dto => entity, entity => dto 자동으로 변환처리가능한 라이브러리
+    사용하기위한 환경설정
+    1. RootConfig.java 작성
+    

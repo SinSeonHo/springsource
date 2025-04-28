@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layouts/layout}">
+  <th:block layout:fragment="css"></th:block>
+  <th:block layout:fragment="title">
+    <title>도서목록</title>
+  </th:block>
+  <div layout:fragment="content">
+    <!-- 작성할 본문내용 -->
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Code</th>
+          <th scope="col">Title</th>
+          <th scope="col">Author</th>
+          <th scope="col">CreatedDate</th>
+        </tr>
+      </thead>
+      <!-- 테이블 반복요소 -->
+      <tbody>
+        <tr th:each="book : ${books}">
+          <th scope="row" th:text="${book.code}"></th>
+          <td><a th:href="@{/book/read(code=${book.code})}" th:text="${book.title}"></a></td>
+          <td th:text="${book.author}"></td>
+          <td th:text="${#temporals.format(book.createdDate, 'yyyy-MM-dd')}"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <th:block layout:fragment="script">
+    <!-- 개별 페이지 script 작성 -->
+    <script>
+      const code = "[[${code}]]";
+      if (code) alert("입력 성공");
+    </script>
+  </th:block>
+</html>

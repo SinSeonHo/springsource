@@ -14,14 +14,31 @@
   <body>
     <h1>Register</h1>
     <div class="container">
-      <form action="" method="post">
+      <form action="" method="post" th:object="${mDto}" novalidate>
         <div class="mb-3">
           <label for="userid" class="form-label">userid</label>
-          <input type="text" class="form-control" id="userid" name="userid" />
+          <input type="text" class="form-control" id="userid" name="userid" th:value="${mDto.userid}" />
+          <div class="text-danger" th:if="${#fields.hasErrors('userid')}" th:errors="*{userid}"></div>
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" id="password" name="password" />
+          <input type="password" class="form-control" id="password" name="password" th:value="${mDto.password}" />
+          <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" name="email" th:value="${mDto.email}" />
+          <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+        </div>
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" class="form-control" id="name" name="name" th:value="${mDto.name}" />
+          <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        </div>
+        <div class="mb-3">
+          <label for="age" class="form-label">Age</label>
+          <input type="number" class="form-control" id="age" name="age" th:value="${mDto.age}" />
+          <div class="text-danger" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
         </div>
         <div class="mb-3 form-check">
           <input type="checkbox" class="form-check-input" id="check" name="check" value="true" />

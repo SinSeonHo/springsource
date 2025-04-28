@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layouts/layout}">
+  <th:block layout:fragment="css"> </th:block>
+  <div layout:fragment="content">
+    <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
+      <form method="post">
+        <div class="row mb-3">
+          <label for="inputEmail3" class="col-sm-2 col-form-label">todo</label>
+          <div class="col-sm-10">
+            <textarea name="content" id="content" rows="10" cols="50" class="form-control"></textarea>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-10 offset-sm-2">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="completed" name="completed" value="true" />
+              <label class="form-check-label" for="completed"> Completed </label>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-10 offset-sm-2">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="importanted" name="importanted" value="true" />
+              <label class="form-check-label" for="importanted"> Importanted </label>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-danger">입력</button>
+        <a th:href="@{/todo/list}" class="btn btn-primary">목록</a>
+      </form>
+    </div>
+  </div>
+  <th:block layout:fragment="script"> </th:block>
+</html>

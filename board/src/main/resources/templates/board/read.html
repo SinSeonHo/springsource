@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layouts/layout}">
+  <div layout:fragment="content">
+    <h1>Board Read</h1>
+
+    <form>
+      <div class="mb-3">
+        <label for="bno" class="form-label">번호</label>
+        <input type="text" class="form-control" id="bno" name="bno" th:value="${dto.bno}" readonly />
+      </div>
+      <div class="mb-3">
+        <label for="title" class="form-label">제목</label>
+        <input type="text" class="form-control" id="title" name="title" th:value="${dto.title}" readonly />
+      </div>
+      <div class="mb-3">
+        <label for="content" class="form-label">내용</label>
+        <textarea name="content" id="content" rows="10" class="form-control" readonly>[[${dto.content}]]</textarea>
+      </div>
+      <div class="mb-3">
+        <label for="name" class="form-label">작성자</label>
+        <input type="text" class="form-control" id="name" name="name" th:value="${dto.name}" readonly />
+      </div>
+      <a class="btn btn-primary">수정</a>
+      <a class="btn btn-success" th:href="@{/board/list}">목록</a>
+    </form>
+    <div class="row mt-3">
+      <h5 class="my-3">댓글개수 : <span th:text="${dto.replyCount}"></span></h5>
+
+      <div class="replyList boarder px-2">
+        <!-- 댓글목록 -->
+      </div>
+    </div>
+  </div>
+</html>

@@ -5,7 +5,7 @@
     <title>도서정보수정</title>
   </th:block>
   <div layout:fragment="content">
-    <!-- 작성할 본문내용 -->
+    <!--본문내용-->
     <h3>Book Modify</h3>
     <form method="post">
       <div class="mb-3">
@@ -24,14 +24,20 @@
         <label for="price" class="form-label">Price</label>
         <input type="text" class="form-control" id="price" name="price" th:value="${book.price}" />
       </div>
-
       <button type="submit" class="btn btn-primary">수정</button>
       <button type="button" class="btn btn-danger">삭제</button>
-      <a th:href="@{/book/list}" class="btn btn-success">목록</a>
+      <a
+        th:href="@{/book/list(page=${pageRequestDTO.page},size=${pageRequestDTO.size},type=${pageRequestDTO.type},keyword=${pageRequestDTO.keyword})}"
+        class="btn btn-success"
+        >목록</a
+      >
     </form>
-
     <form th:action="@{/book/remove}" method="post" id="actionForm">
       <input type="hidden" name="code" th:value="${book.code}" />
+      <input type="hidden" name="page" th:value="${pageRequestDTO.page}" />
+      <input type="hidden" name="size" th:value="${pageRequestDTO.size}" />
+      <input type="hidden" name="type" th:value="${pageRequestDTO.type}" />
+      <input type="hidden" name="keyword" th:value="${pageRequestDTO.keyword}" />
     </form>
   </div>
   <th:block layout:fragment="script">

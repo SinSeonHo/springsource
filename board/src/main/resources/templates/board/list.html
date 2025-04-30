@@ -1,33 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" layout:decorate="~{layouts/layout}">
-  <th:block layout:fragment="css">
-    <!-- 개별 페이지 css 작성 -->
-  </th:block>
-  <th:block layout:fragment="title">
-    <title>도서목록</title>
-  </th:block>
   <div layout:fragment="content">
-    <!--본문내용-->
+    <h1>Board List</h1>
+
+    <!-- BNO, TITLE, CREATE_DATE, NAME, REPLYCNT -->
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">Code</th>
-          <th scope="col">Title</th>
-          <th scope="col">Author</th>
-          <th scope="col">CreatedDate</th>
+          <th scope="col">번호</th>
+          <th scope="col">제목</th>
+          <th scope="col">작성일</th>
+          <th scope="col">작성자</th>
+          <th scope="col">댓글수</th>
         </tr>
       </thead>
       <tbody>
-        <tr th:each="book : ${result.dtoList}">
-          <th scope="row" th:text="${book.code}"></th>
+        <tr th:each="dto : ${result.dtoList}">
+          <th scope="row" th:text="${dto.bno}"></th>
           <td>
-            <a
-              th:href="@{/book/read(code=${book.code},page=${pageRequestDTO.page},size=${pageRequestDTO.size},type=${pageRequestDTO.type},keyword=${pageRequestDTO.keyword})}"
-              th:text="${book.title}"
-            ></a>
+            <a th:href="@{read(bno=${dto.bno})}">[[${dto.title}]]</a> ----------- [[${dto.replyCount != null ?
+            dto.replyCount + '개' : '0개'}]]
           </td>
-          <td th:text="${book.author}"></td>
-          <td th:text="${#temporals.format(book.createdDate,'yyyy-MM-dd')}"></td>
+          <!-- <td th:text="${dto.replyCount != null ? dto.replyCount + '개' : '0개'}"></td> -->
+          <td th:text="${#temporals.format(dto.createdDate, 'yyyy-MM-dd')}"></td>
+          <td th:text="${dto.name}"></td>
         </tr>
       </tbody>
     </table>
@@ -40,7 +36,7 @@
             >Previous</a
           >
         </li>
-        <!-- <li class="page-item active">-->
+
         <li th:class="'page-item ' + ${result.current == page ?'active': ''}" th:each=" page: ${result.pageNumList}">
           <a
             class="page-link"
@@ -59,11 +55,4 @@
       </ul>
     </nav>
   </div>
-  <th:block layout:fragment="script">
-    <!-- 개별 페이지 script 작성 -->
-    <script>
-      const code = "[[${code}]]";
-      if (code) alert("입력 성공");
-    </script>
-  </th:block>
 </html>

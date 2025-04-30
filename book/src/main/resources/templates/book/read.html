@@ -5,9 +5,9 @@
     <title>도서상세조회</title>
   </th:block>
   <div layout:fragment="content">
-    <!-- 작성할 본문내용 -->
+    <!--본문내용-->
+    <h3>Book Read</h3>
     <form>
-      <h3>Book Read</h3>
       <div class="mb-3">
         <label for="code" class="form-label">Code</label>
         <input type="text" class="form-control" id="code" name="code" th:value="${book.code}" readonly />
@@ -24,9 +24,16 @@
         <label for="price" class="form-label">Price</label>
         <input type="text" class="form-control" id="price" name="price" th:value="${book.price}" readonly />
       </div>
-
-      <a th:href="@{/book/modify(code=${book.code})}" class="btn btn-primary">수정</a>
-      <a th:href="@{/book/list}" class="btn btn-success">목록</a>
+      <a
+        th:href="@{/book/modify(code=${book.code},page=${pageRequestDTO.page},size=${pageRequestDTO.size},type=${pageRequestDTO.type},keyword=${pageRequestDTO.keyword})}"
+        class="btn btn-primary"
+        >수정</a
+      >
+      <a
+        th:href="@{/book/list(page=${pageRequestDTO.page},size=${pageRequestDTO.size},type=${pageRequestDTO.type},keyword=${pageRequestDTO.keyword})}"
+        class="btn btn-success"
+        >목록</a
+      >
     </form>
   </div>
   <th:block layout:fragment="script"></th:block>

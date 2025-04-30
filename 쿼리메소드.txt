@@ -25,6 +25,9 @@ save()
       - 간단한 곳에서 사용 편리
       - 조인 불가능(left join 불가능)
       - 복잡한 실무환경에서는 사용하기에 한계가 명확
+      - Sort 객체 사용 가능
+      
    (2) QuerydslRepositorySupport 추상클래스
       - 확장성 제공
       - 조인 가능
+      - Sort 객체 사용 불가능

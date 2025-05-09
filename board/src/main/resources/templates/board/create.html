@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layouts/layout}">
+  <div layout:fragment="content">
+    <h1>Board Create</h1>
+    <!-- th:object를 통해 접근할 객체선언 / novalidate를 통해 자동검증 하지않도록 -->
+    <!-- 자동검증대상 : type (email, tel, search, url 등) -->
+    <form method="post" th:object="${dto}" novalidate>
+      <div class="mb-3">
+        <label for="title" class="form-label">제목</label>
+        <input type="text" class="form-control" id="title" name="title" th:value="${dto.title}" />
+        <!-- 에러발생 시 오류메시지 띄워줌 -->
+        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger"></div>
+      </div>
+      <div class="mb-3">
+        <label for="content" class="form-label">내용</label>
+        <textarea name="content" id="content" rows="10" class="form-control">[[${dto.content}]]</textarea>
+        <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="text-danger"></div>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">이메일</label>
+        <input type="email" class="form-control" id="email" name="email" th:value="${dto.email}" />
+        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></div>
+      </div>
+      <div class="mb-3">
+        <label for="name" class="form-label">작성자</label>
+        <input type="text" class="form-control" id="name" name="name" th:value="${dto.name}" />
+      </div>
+      <button type="submit" class="btn btn-primary">추가</button>
+      <a
+        class="btn btn-success"
+        th:href="@{list(page=${pageRequestDTO.page}, size=${pageRequestDTO.size}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}"
+        >목록</a
+      >
+    </form>
+  </div>
+</html>

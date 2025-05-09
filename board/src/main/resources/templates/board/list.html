@@ -2,7 +2,27 @@
 <html lang="en" layout:decorate="~{layouts/layout}">
   <div layout:fragment="content">
     <h1>Board List</h1>
-
+    <div class="mt-3">
+      <!-- 검색 -->
+      <form action="" method="get" id="searchForm">
+        <input type="hidden" name="page" value="1" class="form-control" />
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <select name="type" class="form-select" required>
+              <option th:selected="${pageRequestDTO.type == null}">------</option>
+              <option value="t" th:selected="${pageRequestDTO.type == 't'}">제목</option>
+              <option value="c" th:selected="${pageRequestDTO.type == 'c'}">내용</option>
+              <option value="w" th:selected="${pageRequestDTO.type == 'w'}">작성자</option>
+              <option value="tc" th:selected="${pageRequestDTO.type == 'tc'}">제목 + 내용</option>
+              <option value="tcw" th:selected="${pageRequestDTO.type == 'tcw'}">제목 + 내용 + 작성자</option>
+            </select>
+          </div>
+          <input type="text" name="keyword" class="form-control" required th:value="${pageRequestDTO.keyword}" />
+          <button type="submit" class="btn btn-outline-secondary btn-search">Search</button>
+          <button type="reset" class="btn btn-outline-secondary btn-clear">Clear</button>
+        </div>
+      </form>
+    </div>
     <!-- BNO, TITLE, CREATE_DATE, NAME, REPLYCNT -->
     <table class="table">
       <thead>
@@ -18,8 +38,11 @@
         <tr th:each="dto : ${result.dtoList}">
           <th scope="row" th:text="${dto.bno}"></th>
           <td>
-            <a th:href="@{read(bno=${dto.bno})}">[[${dto.title}]]</a> ----------- [[${dto.replyCount != null ?
-            dto.replyCount + '개' : '0개'}]]
+            <a
+              th:href="@{read(bno=${dto.bno}, page=${pageRequestDTO.page}, size=${pageRequestDTO.size}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}"
+              >[[${dto.title}]]</a
+            >
+            ----------- [[${dto.replyCount != null ? dto.replyCount + '개' : '0개'}]]
           </td>
           <!-- <td th:text="${dto.replyCount != null ? dto.replyCount + '개' : '0개'}"></td> -->
           <td th:text="${#temporals.format(dto.createdDate, 'yyyy-MM-dd')}"></td>

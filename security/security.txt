@@ -1,0 +1,32 @@
+spring security
+- 현재 프로젝트는 시큐리티 설정에 의해 움직임
+
+  filter 를 통과해야 컨트롤러로 넘어감
+
+  로그인 정보없이는 모든 페이지 접근불가
+  익명사용자 : AnonymousUser
+  인증사용자 : AuthenticationUser - 로그인 후
+  username : 현재 페이지에서 사용하는 id를 의미
+
+  - 비밀번호 암호화
+    단방향 암호화 : 한번 암호화를 하면 원 비밀번호를 찾을 수 없음
+
+  - 메소드
+    permitAll() : 권한 필요 없음 (권한 다 열어버림)
+    authenticated() : 권한(로그인 성공 후 부여되는 권한) 필요 함
+
+  - 로그인 페이지
+    id에 해당하는 요소의 이름은 반드시 username 으로 설정한다 (변경가능)
+    사용자의 로그인 페이지를 사용하려면 .formLogin(login -> login.loginPage("/member/login").permitAll());
+    로그인 POST 작업은 하지 않음 => 시큐리티가 알아서 처리함
+    => get 을 제외한 모든 방법(post, put, delete)은 csrf 토큰을 요구함
+    => 타임리프에서는 action에 경로를 설정하면 csrf 토큰을 넣어줌
+    로그인 성공 후 어디로 이동할 것인지 경로 지정을 하지 않으면 이전 url로 되돌아감
+
+    로그인 처리를 위한 Service 는 작성해야 함 : UserDetailsService 구현하는 클래스를 만듦
+
+
+
+
+    type=Forbidden, status=403 권한없을때 나타나는 에러
+    @ElementCollection(fetch = FetchType.LAZY) // 1:N 관계로 테이블 생성해줌

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.todo.dto.ToDoDTO;
@@ -64,4 +65,27 @@ public class TodoService {
         return todos;
 
     }
+
+    // react 화면단에서 사용
+    public List<ToDoDTO> list2() {
+
+        List<ToDo> list = todoRepository.findAll(Sort.by("id").descending());
+
+        List<ToDoDTO> todos = list.stream().map(todo -> modelMapper.map(todo, ToDoDTO.class))
+                .collect(Collectors.toList());
+
+        return todos;
+
+    }
+
+    public ToDoDTO create2(ToDoDTO tododto) {
+
+        ToDo todo = modelMapper.map(tododto, ToDo.class);
+        ToDo newTodo = todoRepository.save(todo);
+        return modelMapper.map(newTodo, ToDoDTO.class);
+
+    }
+
+    // change, remove는 그대로 사용
+
 }

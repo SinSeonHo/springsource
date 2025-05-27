@@ -11,6 +11,7 @@ import com.example.board.sevice.ReplyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,20 +41,23 @@ public class ReplyController {
         return replyService.get(rno);
     }
 
+    @PreAuthorize("authentication.name == #dto.replyerEmail")
     @PutMapping("/{rno}")
     public Long putReply(@PathVariable Long rno, @RequestBody ReplyDTO dto) {
-        log.info("dto 요청 {}", dto);
+        log.info("수정 dto 요청 {}", dto);
         return replyService.update(dto);
 
     }
 
+    @PreAuthorize("authentication.name == #dto.replyerEmail")
     @DeleteMapping("/{rno}")
-    public Long removeReply(@PathVariable Long rno) {
+    public Long removeReply(@PathVariable Long rno, @RequestBody ReplyDTO dto) {
         log.info("delete 요청 {}", rno);
         replyService.delete(rno);
         return rno;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/new")
     public Long postReply(@RequestBody ReplyDTO dto) {
         log.info("post 댓글삽입 요청 {}", dto);

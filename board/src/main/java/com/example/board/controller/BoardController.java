@@ -2,6 +2,7 @@ package com.example.board.controller;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,12 +33,14 @@ public class BoardController {
 
     private final BoardService boardService;
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
     public void getCreate(@ModelAttribute("dto") BoardDTO dto, PageRequestDTO pageRequestDTO) {
         log.info("글 작성 폼 요청");
 
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/create")
     public String postCreate(@ModelAttribute("dto") @Valid BoardDTO dto, BindingResult result,
             PageRequestDTO pageRequestDTO,
@@ -59,6 +62,7 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
+    @PreAuthorize("permitAll()")
     @GetMapping("/list")
     public void getList(Model model, PageRequestDTO pageRequestDTO) {
         log.info("List 요청 {}", pageRequestDTO);
@@ -76,8 +80,11 @@ public class BoardController {
         model.addAttribute("dto", dto);
     }
 
-    @GetMapping({ "/remove" })
-    public String getRemove(Long bno, PageRequestDTO pageRequestDTO, Model model, RedirectAttributes rttr) {
+    // 글쓴이와 로그인 사용자가 같은지 다시한번 체크
+    @PreAuthorize("authentication.name == #email")
+    @PostMapping({ "/remove" })
+    public String getRemove(Long bno, String email, PageRequestDTO pageRequestDTO, Model model,
+            RedirectAttributes rttr) {
         log.info("remove {}", bno);
 
         // 삭제
@@ -90,6 +97,7 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
+    @PreAuthorize("authentication.name == #dto.email") // 글쓴이와 로그인 사용자가 같은지 다시한번 체크
     @PostMapping("/modify")
     public String postMethodName(BoardDTO dto, PageRequestDTO pageRequestDTO, RedirectAttributes rttr) {
         log.info("수정 {} {}", dto, pageRequestDTO);

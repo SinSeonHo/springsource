@@ -23,12 +23,15 @@
           <input type="password" class="form-control" id="exampleInputPassword1" name="password" />
         </div>
         <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          <input type="checkbox" class="form-check-input" id="exampleCheck1" name="remember-me" />
+          <label class="form-check-label" for="exampleCheck1">Remember me</label>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
       <div th:if="${param.error}" class="text-danger">아이디나 비밀번호를 확인해 주세요</div>
+      <div>
+        <a href="/oauth2/authorization/google">구글로그인</a>
+      </div>
     </div>
   </body>
 </html>

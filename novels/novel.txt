@@ -1,0 +1,37 @@
+DB 사용자 생성
+
+system.sql 에서 유저생성 구문실행 xe / noveluser / 12345 생성
+
+아래 구문을 실행하면 유저이름에 c## 떼어낼수있음
+ALTER SESSION SET "_ORACLE_SCRIPT" = TRUE;
+
+사용자 생성
+CREATE USER noveluser IDENTIFIED BY 12345
+DEFAULT TABLESPACE USERS
+TEMPORARY TABLESPACE TEMP
+QUOTA 10M ON USERS;
+
+권한 부여
+GRANT CONNECT, RESOURCE TO noveluser;
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+application.properties DB유저정보에 맞게 수정
+패키지 기본 형태 구성 novels / controller, dto, entity, repository 생성
+
+엔티티를 기반으로 db테이블 생성 후 더미데이터 삽입
+
+각 엔티티에 대응하는 repository 생성 후 테스트 자료 삽입
+
+쿼리문 작성
+q클래스사용하기위한 querydsl pom.xml 추가
+
+service 개발
+
+controller 개발
+
+전체조회 : http://localhost:8080/api/books    GET
+하나조회 : http://localhost:8080/api/books/1  GET
+입력 : http://localhost:8080/api/books/add    POST
+수정 : http://localhost:8080/api/books/1      PUT
+삭제 : http://localhost:8080/api/books/1      DELETE

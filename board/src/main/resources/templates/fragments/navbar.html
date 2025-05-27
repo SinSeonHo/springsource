@@ -27,13 +27,13 @@
               data-bs-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
-              >Dropdown</a
+              >회원</a
             >
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#!">Action</a>
-              <a class="dropdown-item" href="#!">Another action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#!">Something else here</a>
+              <a class="dropdown-item" th:href="@{/member/login}" sec:authorize="!isAuthenticated()">Login</a>
+              <a class="dropdown-item" th:href="@{/member/register}" sec:authorize="!isAuthenticated()">Register</a>
+              <a class="dropdown-item" th:href="@{/member/logout}" sec:authorize="isAuthenticated()">Logout</a>
+              <a class="dropdown-item" href="#!" sec:authorize="isAuthenticated()">비밀번호변경</a>
             </div>
           </li>
         </ul>

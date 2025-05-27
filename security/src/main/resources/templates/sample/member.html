@@ -7,6 +7,15 @@
   </head>
   <body>
     <h1>Member</h1>
-    <a th:href="@{/member/logout}" class="btn btn-primary">로그아웃</a>
+    <h3>권한 확인 <span sec:authentication="principal.authorities"></span></h3>
+    <h3>username(ID) <span sec:authentication="principal.username"></span></h3>
+    <h3 sec:authorize="isAuthenticated()">인증된 사용자</h3>
+    <!-- ADMIN권한이 없으면 해당 부분은 보이지않음 -->
+    <h3 sec:authorize="hasRole('ROLE_ADMIN')">ADMIN</h3>
+    <h3 sec:authorize="hasRole('ROLE_USER')">일반 USER</h3>
+
+    <div sec:authorize="isAuthenticated()">
+      <a th:href="@{/member/logout}" class="btn btn-primary">로그아웃</a>
+    </div>
   </body>
 </html>

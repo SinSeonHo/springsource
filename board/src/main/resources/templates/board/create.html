@@ -4,7 +4,7 @@
     <h1>Board Create</h1>
     <!-- th:object를 통해 접근할 객체선언 / novalidate를 통해 자동검증 하지않도록 -->
     <!-- 자동검증대상 : type (email, tel, search, url 등) -->
-    <form method="post" th:object="${dto}" novalidate>
+    <form method="post" th:object="${dto}" th:action="@{/board/create}" novalidate>
       <div class="mb-3">
         <label for="title" class="form-label">제목</label>
         <input type="text" class="form-control" id="title" name="title" th:value="${dto.title}" />
@@ -17,13 +17,12 @@
         <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="text-danger"></div>
       </div>
       <div class="mb-3">
-        <label for="email" class="form-label">이메일</label>
-        <input type="email" class="form-control" id="email" name="email" th:value="${dto.email}" />
-        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></div>
+        <!-- pk 이메일 hidden -->
+        <input type="hidden" class="form-control" id="email" name="email" th:value="${#authentication.name}" />
       </div>
       <div class="mb-3">
         <label for="name" class="form-label">작성자</label>
-        <input type="text" class="form-control" id="name" name="name" th:value="${dto.name}" />
+        <input type="text" class="form-control" id="name" name="name" th:value="${#authentication.principal.name}" />
       </div>
       <button type="submit" class="btn btn-primary">추가</button>
       <a

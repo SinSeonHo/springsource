@@ -3,7 +3,7 @@
   <div layout:fragment="content">
     <h1>Board Modify</h1>
 
-    <form method="post">
+    <form method="post" th:action="@{/board/modify}">
       <div class="mb-3">
         <label for="bno" class="form-label">번호</label>
         <input type="text" class="form-control" id="bno" name="bno" th:value="${dto.bno}" readonly />
@@ -20,17 +20,14 @@
         <label for="name" class="form-label">작성자</label>
         <input type="text" class="form-control" id="name" name="name" th:value="${dto.name}" readonly />
       </div>
-      <button type="submit" class="btn btn-primary">수정</button>
+      <input type="hidden" class="form-control" id="email" name="email" th:value="${#authentication.name}" />
+      <button type="submit" class="btn btn-primary" th:if="${#authentication.name} == ${dto.email}">수정</button>
       <a
         class="btn btn-success"
         th:href="@{list(page=${pageRequestDTO.page}, size=${pageRequestDTO.size}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}"
         >목록</a
       >
-      <a
-        class="btn btn-danger"
-        th:href="@{remove(bno=${dto.bno}, page=${pageRequestDTO.page}, size=${pageRequestDTO.size}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}"
-        >삭제</a
-      >
+      <button type="button" th:if="${#authentication.name} == ${dto.email}" class="btn btn-danger">삭제</button>
     </form>
     <div class="row mt-3">
       <h5 class="my-3">댓글개수 : <span th:text="${dto.replyCount}"></span></h5>
@@ -39,5 +36,16 @@
         <!-- 댓글목록 -->
       </div>
     </div>
+    <form th:action="@{/board/remove}" method="post" id="removeForm">
+      <input type="hidden" name="bno" th:value="${dto.bno}" />
+      <input type="hidden" name="page" th:value="${pageRequestDTO.page}" />
+      <input type="hidden" name="size" th:value="${pageRequestDTO.size}" />
+      <input type="hidden" name="type" th:value="${pageRequestDTO.type}" />
+      <input type="hidden" name="keyword" th:value="${pageRequestDTO.keyword}" />
+      <input type="hidden" name="email" th:value="${dto.email}" />
+    </form>
   </div>
+  <th:block layout:fragment="script">
+    <script th:src="@{/js/modify.js}"></script>
+  </th:block>
 </html>

@@ -38,6 +38,15 @@ public class NovelService {
 
     }
 
+    public Long pubUpdate(NovelDTO novelDTO) {
+
+        // publishedDate 변경
+        Novel novel = novelRepository.findById(novelDTO.getId()).get();
+        novel.changePublishedDate(novelDTO.getPublishedDate());
+        return novelRepository.save(novel).getId();
+
+    }
+
     @Transactional
     public void novelRemove(Long id) {
 
@@ -68,7 +77,7 @@ public class NovelService {
         // 최신리스트 10개 불러오기
         Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(),
                 Sort.by("id").descending());
-        Page<Object[]> result = novelRepository.list(pageable);
+        Page<Object[]> result = novelRepository.list(pageRequestDTO.getGenre(), pageRequestDTO.getKeyword(), pageable);
 
         // entity -> dto
         List<NovelDTO> dtoList = result.get().map(arr -> {

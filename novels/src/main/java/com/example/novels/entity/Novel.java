@@ -47,4 +47,8 @@ public class Novel {
     public void changeAvailable(boolean available) {
         this.available = available;
     }
+
+    public void changePublishedDate(LocalDate publishedDate) {
+        this.publishedDate = publishedDate;
+    }
 }

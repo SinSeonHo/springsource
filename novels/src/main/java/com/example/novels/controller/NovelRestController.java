@@ -51,15 +51,22 @@ public class NovelRestController {
     }
 
     // 수정
+
     @PutMapping("/{id}")
     public Long putNovel(@RequestBody NovelDTO novelDTO) {
-        log.info("도서 put 수정 {}", novelDTO);
+        log.info("대여가능여부 수정 {}", novelDTO);
         return novelService.avaUpdate(novelDTO);
+    }
+
+    @PutMapping("/edit/{id}")
+    public Long putPubNovel(@RequestBody NovelDTO novelDTO) {
+        log.info("출판일자 수정 {}", novelDTO);
+        return novelService.pubUpdate(novelDTO);
     }
 
     // 삭제
     @DeleteMapping("/{id}")
-    public Long putMethodName(@PathVariable Long id) {
+    public Long deleteMethodName(@PathVariable Long id) {
         log.info("도서 delete 삭제 {}", id);
         novelService.novelRemove(id);
         return id;

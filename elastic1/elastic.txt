@@ -1,0 +1,6 @@
+spring elasticsearch 연동하기
+
+application.properties 대신
+application.yml 생성하여 사용해보기
+
+elastic에서 id는 문자열개념임

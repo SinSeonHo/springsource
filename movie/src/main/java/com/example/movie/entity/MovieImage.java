@@ -26,6 +26,7 @@ public class MovieImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long inum;
+    
     private String uuid;
     private String imgName;
     private String path;

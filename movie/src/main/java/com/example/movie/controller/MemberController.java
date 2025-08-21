@@ -68,7 +68,7 @@ public class MemberController {
         log.info("회원가입 요청 {}", memberDTO);
 
         if (result.hasErrors()) {
-            return "/member/register";
+            return "member/register";
         }
 
         memberDTO.setMemberRole(MemberRole.MEMBER);
@@ -77,7 +77,7 @@ public class MemberController {
             service.register(memberDTO);
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
-            return "/member/register";
+            return "member/register";
         }
 
         return "redirect:/member/login";
@@ -120,7 +120,7 @@ public class MemberController {
         } catch (Exception e) {
             // 현재 비밀번호가 다를 때
             model.addAttribute("error", e.getMessage());
-            return "/member/edit";
+            return "member/edit";
         }
         // 비밀번호 변경
         // 1) 세션 해제 후 로그인 페이지로 이동
